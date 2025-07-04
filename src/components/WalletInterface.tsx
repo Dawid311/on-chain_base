@@ -288,23 +288,107 @@ export default function WalletInterface() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full mx-4">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Base Wallet</h1>
-            <p className="text-gray-600">Connect your wallet to get started</p>
-          </div>
-          
-          <div className="space-y-4">
-            <Wallet>
-              <ConnectWallet />
-            </Wallet>
-          </div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-lg max-w-4xl w-full">
+          <div className="p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">Faith Wallet</h1>
+              <p className="text-gray-600">Wählen Sie Ihre bevorzugte Wallet zum Verbinden</p>
+            </div>
+            
+            {/* Wallet Connect Section */}
+            <div className="bg-blue-50 rounded-xl p-6 mb-6">
+              <Wallet>
+                <ConnectWallet />
+              </Wallet>
+            </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
-              By connecting, you agree to our Terms of Service and Privacy Policy
-            </p>
+            {/* Available Wallet Options */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-2xl">🟦</span>
+                  <h3 className="font-semibold text-gray-800">Coinbase Wallet</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-2">Offizielle Coinbase Wallet mit OnchainKit Integration</p>
+                <div className="flex flex-wrap gap-1">
+                  <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Self-custody</span>
+                  <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">Multi-chain</span>
+                </div>
+              </div>
+
+              <div className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-2xl">🦊</span>
+                  <h3 className="font-semibold text-gray-800">MetaMask</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-2">Die weltweit beliebteste Ethereum Wallet</p>
+                <div className="flex flex-wrap gap-1">
+                  <span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Browser</span>
+                  <span className="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded">Mobile</span>
+                </div>
+              </div>
+
+              <div className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-2xl">🔗</span>
+                  <h3 className="font-semibold text-gray-800">WalletConnect</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-2">Unterstützt 300+ verschiedene Wallets</p>
+                <div className="flex flex-wrap gap-1">
+                  <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Trust</span>
+                  <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">Rainbow</span>
+                  <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">+300</span>
+                </div>
+              </div>
+
+              <div className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-2xl">🌐</span>
+                  <h3 className="font-semibold text-gray-800">Browser Wallets</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-2">Wallets als Browser-Extension</p>
+                <div className="flex flex-wrap gap-1">
+                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Rabby</span>
+                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Frame</span>
+                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Brave</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Multi-Chain Support */}
+            <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white text-center mb-6">
+              <h3 className="text-lg font-semibold mb-2">Multi-Chain Unterstützung</h3>
+              <p className="text-blue-100 mb-3">Unterstützte Netzwerke:</p>
+              <div className="flex justify-center space-x-6 text-sm">
+                <div className="text-center">
+                  <span className="block text-2xl mb-1">🔵</span>
+                  <span>Base</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-2xl mb-1">💎</span>
+                  <span>Ethereum</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-2xl mb-1">🟣</span>
+                  <span>Polygon</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-2xl mb-1">🔺</span>
+                  <span>Arbitrum</span>
+                </div>
+                <div className="text-center">
+                  <span className="block text-2xl mb-1">🔴</span>
+                  <span>Optimism</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-xs text-gray-500">
+                Durch das Verbinden stimmen Sie unseren Nutzungsbedingungen und der Datenschutzrichtlinie zu
+              </p>
+            </div>
           </div>
         </div>
       </div>
