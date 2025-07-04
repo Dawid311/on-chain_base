@@ -72,7 +72,7 @@ export default function WalletOptions() {
         
         <div className="mt-6 text-center">
           <p className="text-zinc-400 text-sm">
-            Klicken Sie auf "Connect Wallet" und wählen Sie Ihre bevorzugte Option aus der Liste.
+            Klicken Sie auf &quot;Connect Wallet&quot; und wählen Sie Ihre bevorzugte Option aus der Liste.
           </p>
         </div>
       </div>

@@ -1,18 +1,62 @@
 'use client';
 
-import { useEffect, useState, useRef } from "react";
-import { useAccount, useBalance, useDisconnect } from "wagmi";
+import { useEffect, useState } from "react";
+import { useAccount, useBalance } from "wagmi";
 import { ConnectWallet, Wallet } from '@coinbase/onchainkit/wallet';
 import { base } from "wagmi/chains";
 import { formatEther } from "viem";
-import { FaRegCopy, FaCoins, FaArrowDown, FaArrowUp, FaPaperPlane, FaLock, FaHistory, FaTimes, FaSync } from "react-icons/fa";
+import { FaRegCopy, FaCoins, FaArrowDown, FaArrowUp, FaPaperPlane, FaHistory, FaTimes, FaSync } from "react-icons/fa";
 
-// Import Sub-components (wir erstellen diese später)
-import BuyTab from "./wallet/BuyTab";
-import SellTab from "./wallet/SellTab";
-import SendTab from "./wallet/SendTab";
-import HistoryTab from "./wallet/HistoryTab";
-import StakeTab from "./wallet/StakeTab";
+// Temporäre Platzhalter-Komponenten
+const BuyTab = () => (
+  <div className="p-6 text-center">
+    <h3 className="text-xl font-bold text-white mb-4">ETH kaufen</h3>
+    <p className="text-zinc-400 mb-6">Hier kannst du ETH direkt kaufen.</p>
+    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p className="text-amber-400 text-sm">🚧 Funktion wird implementiert</p>
+    </div>
+  </div>
+);
+
+const SellTab = () => (
+  <div className="p-6 text-center">
+    <h3 className="text-xl font-bold text-white mb-4">ETH verkaufen</h3>
+    <p className="text-zinc-400 mb-6">Hier kannst du deine ETH verkaufen.</p>
+    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p className="text-amber-400 text-sm">🚧 Funktion wird implementiert</p>
+    </div>
+  </div>
+);
+
+const SendTab = () => (
+  <div className="p-6 text-center">
+    <h3 className="text-xl font-bold text-white mb-4">ETH senden</h3>
+    <p className="text-zinc-400 mb-6">Hier kannst du ETH an andere Adressen senden.</p>
+    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p className="text-amber-400 text-sm">🚧 Funktion wird implementiert</p>
+    </div>
+  </div>
+);
+
+const HistoryTab = () => (
+  <div className="p-6 text-center">
+    <h3 className="text-xl font-bold text-white mb-4">Transaktionshistorie</h3>
+    <p className="text-zinc-400 mb-6">Hier siehst du alle deine Transaktionen.</p>
+    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p className="text-amber-400 text-sm">🚧 Funktion wird implementiert</p>
+    </div>
+  </div>
+);
+
+const StakeTab = () => (
+  <div className="p-6 text-center">
+    <h3 className="text-xl font-bold text-white mb-4">ETH Staking</h3>
+    <p className="text-zinc-400 mb-6">Hier kannst du deine ETH staken.</p>
+    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p className="text-amber-400 text-sm">🚧 Funktion wird implementiert</p>
+    </div>
+  </div>
+);
 
 // Mobile-optimierte Modal Komponente
 function Modal({ open, onClose, title, children }: { open: boolean, onClose: () => void, title: string, children: React.ReactNode }) {
@@ -48,7 +92,6 @@ function Modal({ open, onClose, title, children }: { open: boolean, onClose: () 
 
 export default function WalletTab() {
   const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
   const { data: balance } = useBalance({
     address,
     chainId: base.id,
@@ -62,12 +105,10 @@ export default function WalletTab() {
     ethEur?: number;
     timestamp?: number;
   }>({});
-  const [priceError, setPriceError] = useState<string | null>(null);
   const [pricesLoaded, setPricesLoaded] = useState<boolean>(false);
 
   // State für Loading und Refresh
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isLoadingBalances, setIsLoadingBalances] = useState(false);
   
   // State für Kopieren-Feedback
   const [showCopyModal, setShowCopyModal] = useState(false);
@@ -114,10 +155,10 @@ export default function WalletTab() {
         return false;
       };
 
-      const hasStoredPrices = loadStoredPrices();
+      loadStoredPrices();
 
       let ethEur: number | null = null;
-      let errorMsg = "";
+      const errorMsg = "";
 
       // ETH/EUR Preis von verschiedenen Anbietern
       const ethProviders = [
@@ -210,9 +251,6 @@ export default function WalletTab() {
         } catch (e) {
           console.log('Fehler beim Speichern der Preise:', e);
         }
-        setPriceError(null);
-      } else {
-        setPriceError(errorMsg || "Preise nicht verfügbar");
       }
 
     } catch (error) {
@@ -301,7 +339,7 @@ export default function WalletTab() {
         console.log("🛑 Preis-Aktualisierung gestoppt");
       }
     };
-  }, [address]);
+  }, [address, fetchEthPrice]);
 
   // EUR-Wert neu berechnen wenn sich Balance oder Preise ändern
   useEffect(() => {
@@ -314,7 +352,7 @@ export default function WalletTab() {
       setEthBalance("0.00");
       setEthEurValue("0.00");
     }
-  }, [ethPriceEur, balance?.value, lastKnownPrices.ethEur, pricesLoaded]);
+  }, [ethPriceEur, balance?.value, lastKnownPrices.ethEur, pricesLoaded, calculateEurValue]);
 
   // Lade gespeicherte Preise beim Start
   useEffect(() => {
@@ -440,11 +478,11 @@ export default function WalletTab() {
             <div className="flex items-center gap-2">
               <button
                 onClick={refreshBalances}
-                disabled={isRefreshing || isLoadingBalances}
-                className={`p-2 rounded-lg ${isRefreshing || isLoadingBalances ? 'bg-amber-600/20' : 'bg-zinc-700 hover:bg-zinc-600'} text-zinc-200 text-sm font-medium transition-all duration-200`}
+                disabled={isRefreshing}
+                className={`p-2 rounded-lg ${isRefreshing ? 'bg-amber-600/20' : 'bg-zinc-700 hover:bg-zinc-600'} text-zinc-200 text-sm font-medium transition-all duration-200`}
                 title="Aktualisieren"
               >
-                <FaSync className={`text-amber-400 ${isRefreshing || isLoadingBalances ? 'animate-spin' : ''}`} />
+                <FaSync className={`text-amber-400 ${isRefreshing ? 'animate-spin' : ''}`} />
               </button>
               <button
                 onClick={copyWalletAddress}
@@ -461,7 +499,7 @@ export default function WalletTab() {
             <span className="uppercase text-xs tracking-widest text-amber-500/80 mb-2">ETH Balance</span>
             <div className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 drop-shadow-sm">
               {ethBalance}
-              {(isLoadingBalances || isRefreshing) && (
+              {isRefreshing && (
                 <span className="ml-2 text-xs text-amber-500/60 animate-pulse">↻</span>
               )}
             </div>

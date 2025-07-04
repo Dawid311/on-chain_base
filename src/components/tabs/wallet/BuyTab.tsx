@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { FaShoppingCart, FaCreditCard, FaExternalLinkAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function BuyTab() {
   const [selectedMethod, setSelectedMethod] = useState<string>("coinbase");
