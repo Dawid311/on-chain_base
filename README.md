@@ -160,3 +160,54 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Navigation & Features
+
+Die Anwendung verfügt über eine moderne Navigationsleiste mit folgenden Tabs:
+
+### 📊 **Tokenomics**
+- Token-Details und Verteilungsstatistiken
+- Aktueller Preis und Marktdaten
+- Übersicht über FAITH Token Distribution
+
+### 💳 **Wallet** 
+- OnchainKit Wallet-Integration
+- Balance-Anzeige und Transaktionshistorie
+- Multi-Chain Unterstützung mit Wagmi
+- Send/Receive Funktionalität
+
+### 📱 **Social Media Hub**
+Dropdown-Menü mit verschiedenen Plattformen:
+
+#### Instagram Tab
+- Profil-Übersicht mit Follower-Statistiken
+- Neueste Posts und Stories
+- Direkte Verlinkung zum Instagram-Profil
+
+#### TikTok Tab
+- Virale Videos und Trends
+- Challenge-Integration (#FaithChallenge)
+- View- und Like-Statistiken
+
+#### Facebook Tab
+- Community Posts und Updates
+- Event-Ankündigungen
+- Live Q&A Sessions
+
+### 👕 **Merchandise**
+- Exklusives Faith-Merchandise
+- T-Shirts, Hoodies, Caps und mehr
+- Integrierter Shopping-Cart
+- Sichere Zahlungsabwicklung
+
+### 🎵 **Stream**
+- Spotify-Integration für Musik-Streaming
+- Beliebte Tracks und Playlist
+- Echtzeit-Musikplayer
+- Play-Counter und Statistiken
+
+### 🎤 **Live Performances**
+- Anstehende Konzerte und Events
+- Ticket-Buchungssystem
+- VIP-Packages und Meet & Greet
+- Live-Stream-Integration
